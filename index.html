@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FalaFácil</title>
+    <style>
+        /* --- ESTILOS DO CORPO --- */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: blue;
+            /* Permite rolagem */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            box-sizing: border-box;
+        }
+
+        /* --- CONTAINER PRINCIPAL (AZUL) --- */
+        .app-container {
+            width: 100%;
+            max-width: 1200px;
+            /* Altura automática */
+            height: auto; 
+            min-height: 80vh;
+	    border-radius: 20px;
+            background-color: blue;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            
+            display: flex;
+            flex-wrap: wrap;
+            align-content: flex-start;
+            justify-content: space-between;
+            
+            padding: 20px;
+            padding-bottom: 40px;
+            box-sizing: border-box;
+        }
+
+        /* --- TÍTULO NO TOPO --- */
+        .header-title {
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- OS QUADRADOS (GRID DE IMAGENS) --- */
+        .item-box {
+            position: relative;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            
+            /* MOBILE: 48% (2 por linha) */
+            width: 48%; 
+            height: 150px; 
+        }
+
+        .item-box:active {
+            transform: scale(0.95);
+            border: 3px solid #FFC107;
+        }
+
+        .item-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* LEGENDA */
+        .label {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* --- DESKTOP (PC) --- */
+        @media (min-width: 768px) {
+            .item-box {
+                /* 4 por linha */
+                width: 23%;
+                height: 200px;
+            }
+            .label {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <div class="header-title">FalaFácil</div>
+
+        <div class="item-box" onclick="tocarAudio('Estou com sede.mp3')">
+            <img src="./imagens/QueroBeberAgua.png" alt="Sede">
+            <div class="label">ESTOU COM SEDE</div>
+        </div>
+
+        <div class="item-box" onclick="tocarAudio('Quero comer.mp3')">
+            <img src="./imagens/EstouComFome.png" alt="Comer">
+            <div class="label">QUERO COMER</div>
+        </div>
+
+        <div class="item-box" onclick="tocarAudio('Quero ir ao banheiro.mp3')">
+            <img src="./imagens/QueroIrAoBanheiro.png" alt="Banheiro">
+            <div class="label">BANHEIRO</div>
+        </div>
+
+        <div class="item-box" onclick="tocarAudio('Estou com sono.mp3')">
+            <img src="./imagens/EstouComSono.png" alt="Sono">
+            <div class="label">ESTOU COM SONO</div>
+        </div>
+
+        <div class="item-box" onclick="tocarAudio('Quero brincar.mp3')">
+            <img src="./imagens/QueroBrincar.png" alt="Brincar">
+            <div class="label">QUERO BRINCAR</div>
+        </div>
+
+        <div class="item-box" onclick="tocarAudio('Hora de estudar.mp3')">
+            <img src="./imagens/HoraDeEstudar.png" alt="Estudar">
+            <div class="label">HORA DE ESTUDAR</div>
+        </div>
+
+        <div class="item-box" onclick="tocarAudio('Estou com dor.mp3')">
+            <img src="./imagens/EstouComDor.png" alt="Dor">
+            <div class="label">ESTOU COM DOR</div>
+        </div>
+
+        <div class="item-box" onclick="tocarAudio('Hora de ir embora.mp3')">
+            <img src="./imagens/HoraDeIrEmbora.png" alt="Embora">
+            <div class="label">HORA DE IR EMBORA</div>
+        </div>
+
+    </div>
+
+    <script>
+        // Variável de controle
+        let audioAtual = null;
+
+        function tocarAudio(nomeArquivo) {
+            // Se já tiver um áudio tocando, para ele
+            if (audioAtual) {
+                audioAtual.pause();
+                audioAtual.currentTime = 0;
+            }
+
+            // AJUSTE AQUI: O código adiciona 'audio/' automaticamente antes do nome
+            const caminhoCompleto = 'audio/' + nomeArquivo;
+            
+            audioAtual = new Audio(caminhoCompleto);
+            
+            audioAtual.play().catch(function(erro) {
+                console.log("Erro: " + erro);
+                alert("Erro! Não encontrei o arquivo em: " + caminhoCompleto);
+            });
+        }
+    </script>
+
+</body>
+</html>
